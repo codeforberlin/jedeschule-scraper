@@ -22,7 +22,7 @@ class SchleswigHolsteinSpider(SchoolSpider):
             name=item.get("name"),
             id="SH-{}".format(item.get("id")),
             address=" ".join(
-                [item.get("street", ""), item.get("houseNumber", "")]
+                [item.get("street", ""), item.get("house_number", "")]
             ).strip(),
             zip=item.get("zipcode"),
             city=item.get("city"),
