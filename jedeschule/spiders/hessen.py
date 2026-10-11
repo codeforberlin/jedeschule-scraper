@@ -113,9 +113,10 @@ class HessenSpider(SchoolSpider):
         if iframe_src:
             latitude, longitude = self._extract_coords_from_osm_url(iframe_src)
 
-        # Filter out placeholder coordinates (-1.0, -1.0) used by Hessen DB for missing data
-        # Example: https://schul-db.bildung.hessen.de/schul_db.html/details/?school_no=9642
-        if latitude == -1.0 and longitude == -1.0:
+        # Filter out placeholder coordinates used by Hessen DB for missing data
+        # (-1.0, -1.0): https://schul-db.bildung.hessen.de/schul_db.html/details/?school_no=9642
+        # (0.0, 0.0): https://schul-db.bildung.hessen.de/schul_db.html/details/?school_no=4405
+        if (latitude, longitude) in [(-1.0, -1.0), (0.0, 0.0)]:
             latitude = None
             longitude = None
 
