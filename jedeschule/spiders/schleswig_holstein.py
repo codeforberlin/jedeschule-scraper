@@ -22,13 +22,14 @@ class SchleswigHolsteinSpider(SchoolSpider):
             name=item.get("name"),
             id="SH-{}".format(item.get("id")),
             address=" ".join(
-                [item.get("street", ""), item.get("houseNumber", "")]
+                [item.get("street", ""), item.get("house_number", "")]
             ).strip(),
             zip=item.get("zipcode"),
             city=item.get("city"),
             email=item.get("email"),
             fax=item.get("fax"),
-            phone=item.get("phone"),
+            phone=item.get("telephone") or None,
+            website=item.get("website") or None,
             latitude=item.get("latitude") or None,
             longitude=item.get("longitude") or None,
         )
