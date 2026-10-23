@@ -25,7 +25,7 @@ In details, the IDs are sourced as follows:
 |BW| DISCH (Dienststellenschlüssel) extracted from email, fallback to address hash when not available (see below) | `BW-04154817` or `BW-FB-e5c29cbf7215726b4f3515cfad6bee63e2a0bb8ded432a34e9e51c4324ec52ea`            |✅ likely (~80% with DISCH, ~20% fallback)|
 |BY| id from the WFS service                                                                                      | `BY-SCHUL_SCHULSTANDORTEGRUNDSCHULEN_2acb7d31-915d-40a9-adcf-27b38251fa48` |❓ unlikely (although we reached out to ask for canonical IDs to be published)|
 |BE| Field `bsn` (Berliner Schulnummer) from the WFS Service                                                      | `BE-02K10`                                                                 |✅ likely|
-|BB| Field `schul_nr` (Schulnummer) from thw WFS Service                                                          | `BB-111430`                                                                |✅ likely|
+|BB| Field `schul_nr` (Schulnummer) from the WFS Service                                                          | `BB-111430`                                                                |✅ likely|
 |HB| Field `snr_txt` (Schulnummer) from the INSPIRE shapefile - official 3-digit ID used in Bremen materials      | `HB-002`                                                                   |✅ likely|
 |HH| Field `schul_id` From the WFS Service                                                                        | `HH-7910-0`                                                                |✅ likely|
 |HE| `school_no` URL query param of the schools's details page (identical to the Dienststellennummer)             | `HE-4024`                                                                  |✅ likely|
@@ -36,6 +36,7 @@ In details, the IDs are sourced as follows:
 |SL| `OBJECTID` from the WFS service                                                                              | `SL-255`                                                                   |❌ no (confirmed with data provider but no alternative available) |
 |SN| Field `id` from the API                                                                                      | `SN-4062`                                                                  |✅ likely|
 |ST| `OBJECTID` from the ArcGIS FeatureServer API (prefixed with `ARC`)                                           | `ST-ARC00001`                                                              |❓ unlikely (OBJECTID may change on data reimport)|
+|SH| Column `id` from the CSV on the open data portal                                                             | `SH-9099793`                                                               |❓ unknown (IDs changed when the source switched to the open data portal in 2024)|
 |TH| `Schulnummer` from the WFS service                                                                           | `TH-10601`                                                                 |✅ likely|
 
 For Baden-Württemberg, not all schools have a Dienststellenschlüssel that we can extract. For those who don't,
@@ -44,7 +45,7 @@ we join name, address, zip and city with a " " between each part and generate th
 ## Geolocations
 When available, we try to use the geolocations provided by the data publishers.
 
-| State | Geolcation available | Source                                       |
+| State | Geolocation available | Source                                       |
 |-------|----------------------|----------------------------------------------|
 | BW    | ✅ Yes                | WFS                                          |
 | BY    | ✅ Yes                | WFS                                          |
@@ -52,7 +53,7 @@ When available, we try to use the geolocations provided by the data publishers.
 | BB    | ✅ Yes                | WFS                                          |
 | HB    | ✅ Yes                | INSPIRE shapefile (converted from EPSG:25832)|
 | HH    | ✅ Yes                | WFS                                          |
-| HE    | ⚠️  Partial (~90%)    | Extracted from OSM on detail pages. The schools without coordinates are schools with placeholder coordinates that are filtered out and schools with no map data at all. |
+| HE    | ⚠️  Partial (~90%)    | Extracted from the map marker on the school detail pages (the coordinates come from the school database and are displayed on an OpenStreetMap map). The schools without coordinates are schools with placeholder coordinates that are filtered out and schools with no map data at all. |
 | MV    | ✅ Yes                | WFS                                          |
 | NI    | ✅ Yes                | NiBiS map service, joined directly by `Schulnummer`. |
 | NW    | ✅ Yes                | Converted from EPSG:25832 in source CSV data |
@@ -60,6 +61,7 @@ When available, we try to use the geolocations provided by the data publishers.
 | SL    | ✅ Yes                | WFS                                          |
 | SN    | ✅ Yes                | API                                          |
 | ST    | ✅ Yes                | ArcGIS (converted from EPSG:25832)           |
+| SH    | ⚠️  Partial (~94%)    | CSV on the open data portal. The schools without coordinates have none in the source data. |
 | TH    | ✅ Yes                | WFS                                          |
 
 ## Additional Data Fields
